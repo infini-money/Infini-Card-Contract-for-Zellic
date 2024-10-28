@@ -18,6 +18,7 @@ abstract contract BaseStrategyManager is IStrategyManager, AccessControl {
         infiniTreasure = _treasure;
         profitToken = IStrategyVault(strategyVault).shareToken();
 
+        _grantRole(DEFAULT_ADMIN_ROLE, _adminRole);
         _grantRole(ADMIN_ROLE, _adminRole);
     }
 

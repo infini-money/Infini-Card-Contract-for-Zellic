@@ -22,9 +22,9 @@ contract MorphoDisvestScript is Script {
         vm.startBroadcast(adminPrivateKey);
 
         // 1. withdraw usdc from morpho
-        address morpho = 0x6ac25F85a8fA9a7D77B3f2165103Fc0F09642B6A;
+        address morpho = 0x8D859BA19cC903cb71F7d36390f694c76821fCE2;
         address USDC = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
-        address payable infiniCardVault = payable(0x09E52AA36484c20288D9C148458Ea4DA991118Af);
+        address payable infiniCardVault = payable(0xB26AaA980fEADD4E06E51ff435d1ac9617D9FAcc);
         address market = 0xd63070114470f685b75B74D60EEc7c1113d33a3D;
         address shaneson = 0x790ac11183ddE23163b307E3F7440F2460526957;
 
@@ -33,11 +33,11 @@ contract MorphoDisvestScript is Script {
         console.log("balance", shares);
 
         // settle profit
-        uint256 profit = InfiniMorphoStrategyVault(morpho).getProfit();
-        console.log("profit", profit);
+        // uint256 profit = InfiniMorphoStrategyVault(morpho).getProfit();
+        // console.log("profit", profit);
 
-        InfiniMorphoStrategyVault(morpho).settle(profit);
-        console.log("settleProfit finished");
+        // InfiniMorphoStrategyVault(morpho).settle(profit);
+        // console.log("settleProfit finished");
 
         // get position
         uint256 position = InfiniMorphoStrategyVault(morpho).getPosition();
