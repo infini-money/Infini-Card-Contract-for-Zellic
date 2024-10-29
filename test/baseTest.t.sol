@@ -40,9 +40,10 @@ contract BaseTest is Test {
         delegateSinger = vm.addr(deployerPrivateKey);
         vm.createSelectFork("https://rpc.mevblocker.io");
 
-        infiniCardVault = new InfiniCardVault(shaneson, shaneson, shaneson);
+        infiniCardVault = new InfiniCardVault(shaneson, shaneson, shaneson, shaneson);
 
         infiniEthenaStrategy = new InfiniEthenaStrategyVault(
+            shaneson,
             shaneson,
             address(infiniCardVault),
             USDTAddress,
@@ -53,10 +54,12 @@ contract BaseTest is Test {
         infiniEthenaStrategyManager = new InfiniEthenaStrategyManager(
             address(infiniEthenaStrategy),
             infiniTreasure,
+            shaneson,
             shaneson
         );
 
         infiniMorphoStrategy = new InfiniMorphoStrategyVault(
+            shaneson,
             shaneson,
             address(infiniCardVault),
             USDCAddress,

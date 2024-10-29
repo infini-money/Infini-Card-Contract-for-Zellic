@@ -28,6 +28,7 @@ abstract contract BaseStrategyVault is IStrategyVault, AccessControl {
     event RedeemFinished(uint256 amount);
 
     constructor(
+        address _multiSign,
         address _adminRole, 
         address _infiniCardVault,
         address _asset,
@@ -41,7 +42,7 @@ abstract contract BaseStrategyVault is IStrategyVault, AccessControl {
         shareToken = _shareToken;
         infiniVault = _infiniCardVault;
 
-        _grantRole(DEFAULT_ADMIN_ROLE, _adminRole);
+        _grantRole(DEFAULT_ADMIN_ROLE, _multiSign);
         _grantRole(ADMIN_ROLE, _adminRole);
         _grantRole(INFINI_CARD_VAULT, _infiniCardVault);
     }

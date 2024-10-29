@@ -13,12 +13,12 @@ abstract contract BaseStrategyManager is IStrategyManager, AccessControl {
     address public immutable profitToken;
     uint256 carryRate = 500;
 
-    constructor(address _strategy, address _treasure, address _adminRole) {
+    constructor(address _strategy, address _treasure, address _adminRole, address multiSign) {
         strategyVault = _strategy;
         infiniTreasure = _treasure;
         profitToken = IStrategyVault(strategyVault).shareToken();
 
-        _grantRole(DEFAULT_ADMIN_ROLE, _adminRole);
+        _grantRole(DEFAULT_ADMIN_ROLE, multiSign);
         _grantRole(ADMIN_ROLE, _adminRole);
     }
 

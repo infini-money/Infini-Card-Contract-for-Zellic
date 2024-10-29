@@ -16,6 +16,7 @@ contract InfiniMorphoStrategyVault is BaseStrategyVault, IStrategyManager {
     uint256 public carryRate = 500;
     
     constructor(
+        address _multiSign,
         address _adminRole, 
         address _infiniCardVault,
         address _asset,
@@ -23,7 +24,7 @@ contract InfiniMorphoStrategyVault is BaseStrategyVault, IStrategyManager {
         address _market,
         address _treasure
     ) 
-        BaseStrategyVault(_adminRole, _infiniCardVault, _asset, _shareToken) 
+        BaseStrategyVault(_multiSign, _adminRole, _infiniCardVault, _asset, _shareToken) 
     {
         market = _market;
         infiniTreasure = _treasure;

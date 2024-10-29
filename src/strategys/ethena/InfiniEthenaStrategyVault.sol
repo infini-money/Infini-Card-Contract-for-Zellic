@@ -16,12 +16,13 @@ contract InfiniEthenaStrategyVault is BaseStrategyVault {
     event RemoveDelegateSigner(address delegateSigner);
 
     constructor(
+        address _multiSign,
         address _adminRole, 
         address _infiniCardVault,
         address _asset,
         address _usde,
         address _ethenaMintingAddress
-    ) BaseStrategyVault(_adminRole, _infiniCardVault, _asset, _usde) {
+    ) BaseStrategyVault(_multiSign, _adminRole, _infiniCardVault, _asset, _usde) {
         ethenaMintingAddress = _ethenaMintingAddress;
     }
 

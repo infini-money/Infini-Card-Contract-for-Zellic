@@ -13,8 +13,9 @@ contract InfiniEthenaStrategyManager is BaseStrategyManager {
     constructor(
         address _strategy, 
         address _treasure, 
-        address _adminRole
-    ) BaseStrategyManager(_strategy, _treasure, _adminRole) {}
+        address _adminRole,
+        address _multiSign
+    ) BaseStrategyManager(_strategy, _treasure, _adminRole, _multiSign) {}
 
     function getStrategyStatus() external view override returns (StrategyStatus memory status) {
         status = StrategyStatus({

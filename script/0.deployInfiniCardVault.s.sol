@@ -14,6 +14,11 @@ contract DeployInfiniCardVault is Script {
     function run() external {
         uint256 adminPrivateKey = vm.envUint("ADMIN_PRIVATE_KEY");
         address adminRole = vm.addr(adminPrivateKey);
+        address multiSign = adminRole;
+
+        // address adminRole = 0x9881301e37B8F54780469BEBa92E58B7c2a902bc;
+        // address multiSign = 0x4786fba4d836B73A39746f778Db1B298B8a62131;
+        address custodian = 0x7E857de437A4Dda3A98Cf3fd37D6B36c139594E8;
 
         // address USDT = 0xdAC17F958D2ee523a2206206994597C13D831ec7;
         address USDC = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
@@ -21,14 +26,17 @@ contract DeployInfiniCardVault is Script {
         
         vm.startBroadcast(adminPrivateKey);
 
-        InfiniCardVault vault = new InfiniCardVault(adminRole, adminRole, adminRole);
-        vault.grantRole(vault.DEFAULT_ADMIN_ROLE(), adminRole);
-        // vault.addCustodianToWhiteList(shaneson);
+        InfiniCardVault vault = new InfiniCardVault(multiSign, adminRole, adminRole, adminRole);
+        vault.addCustodianToWhiteList(custodian);
+
+        vm.stopBroadcast();
 
         // strategys
         address EthenaMintingAddress = 0xe3490297a08d6fC8Da46Edb7B6142E4F461b62D3;
 
+        vm.startBroadcast(adminPrivateKey);
         InfiniEthenaStrategyVault ethena = new InfiniEthenaStrategyVault(
+            multiSign,
             adminRole,
             address(vault),
             USDC,
@@ -36,16 +44,22 @@ contract DeployInfiniCardVault is Script {
             EthenaMintingAddress
         );
         vault.addStrategy(address(ethena));
+        vm.stopBroadcast();
 
+        vm.startBroadcast(adminPrivateKey);
         InfiniEthenaStrategyManager ethenaManager = new InfiniEthenaStrategyManager(
             address(ethena),
             address(adminRole),
-            adminRole
+            adminRole,
+            multiSign
         );
 
         address MorphoMarket = 0xd63070114470f685b75B74D60EEc7c1113d33a3D;
+        vm.stopBroadcast();
 
+        vm.startBroadcast(adminPrivateKey);
         InfiniMorphoStrategyVault morpho = new InfiniMorphoStrategyVault(
+            multiSign,
             adminRole,
             address(vault),
             USDC,
@@ -54,12 +68,12 @@ contract DeployInfiniCardVault is Script {
             adminRole
         );
         vault.addStrategy(address(morpho));
+        vm.stopBroadcast();
 
         console2.log( "address vault =", address(vault));
         console2.log( "address ethena_strategy = ", address(ethena));
         console2.log( "address ethena_manager = ", address(ethenaManager));
         console2.log( "address morpho_strategy = ", address(morpho));
 
-        vm.stopBroadcast();
     }
 }

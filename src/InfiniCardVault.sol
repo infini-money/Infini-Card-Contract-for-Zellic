@@ -14,10 +14,11 @@ contract InfiniCardVault is IInfiniCardVault, InfiniCardController, VaultUtils {
 
     // Constructor to initialize roles
     constructor(
+        address _multiSign,
         address _admin_role, 
         address _strategy_operator_role,
         address _infinity_backend_role
-    ) InfiniCardController(_admin_role, _strategy_operator_role, _infinity_backend_role) {}
+    ) InfiniCardController(_multiSign, _admin_role, _strategy_operator_role, _infinity_backend_role) {}
 
     // =============================================================
     // ==================== View Functions ====================   
