@@ -31,12 +31,12 @@ contract InfiniEthenaStrategyManager is BaseStrategyManager {
         if (profit < unsettledProfit) revert ProfitIsNotEnough();
 
         uint256 protocolProfit = unsettledProfit * carryRate / 10000;
-        uint256 settleProfit = unsettledProfit - protocolProfit;
+        uint256 settledProfit = unsettledProfit - protocolProfit;
 
         IERC20(profitToken).safeTransfer(infiniTreasure, protocolProfit); 
-        IERC20(profitToken).safeTransfer(strategyVault, settleProfit); 
+        IERC20(profitToken).safeTransfer(strategyVault, settledProfit); 
 
-        emit Settlement(profitToken, protocolProfit, settleProfit);
+        emit Settlement(profitToken, settledProfit);
     }
 
     function _getProfit() internal view returns(uint256) {

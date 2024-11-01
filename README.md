@@ -133,7 +133,7 @@ The undistributed effortless interest is distributed into the position, part of 
         uint256 underlyingTokenAmount = getBalance(underlyingToken);
         _deposit(underlyingTokenAmount);
 
-        emit Settlement(shareToken, settleProfitShare, protocolProfitShare);
+        ...
     }
 ```
 
@@ -196,8 +196,7 @@ contract InfiniEthenaStrategyManager is BaseStrategyManager {
 
         IERC20(profitToken).transfer(infiniTreasure, protocolProfit);
         IERC20(profitToken).transfer(strategyVault, settleProfit);
-
-        emit Settlement(profitToken, protocolProfit, settleProfit);
+        ...
     }
 
     function _getProfit() internal view returns(uint256) {

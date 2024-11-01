@@ -13,7 +13,7 @@ contract InfiniMorphoStrategyVault is BaseStrategyVault, IStrategyManager {
     address public immutable infiniTreasure;
 
     string public constant override name = "InfiniMorphoStrategy";
-    uint256 public carryRate = 500;
+    uint256 public carryRate = 0;
     
     constructor(
         address _multiSign,
@@ -66,17 +66,16 @@ contract InfiniMorphoStrategyVault is BaseStrategyVault, IStrategyManager {
         uint256 settleProfitShare = unsettleShare - protocolProfitShare;
 
         IERC4626(market).redeem(protocolProfitShare, infiniTreasure, address(this));
-        IERC4626(market).redeem(settleProfitShare, address(this), address(this));
+        uint256 settledProfit = IERC4626(market).redeem(settleProfitShare, address(this), address(this));
 
         // redeposit again
-        uint256 underlyingTokenAmount = getBalance(underlyingToken);
-        _deposit(underlyingTokenAmount);
+        _deposit(settledProfit);
 
-        emit Settlement(shareToken, settleProfitShare, protocolProfitShare);
+        emit Settlement(shareToken, settledProfit);
     }
 
     function deposit(uint256 amount, bytes calldata) virtual external override  onlyRole(INFINI_CARD_VAULT) {
-        if ( getBalance(underlyingToken) < amount ) revert UnderlyingTokenIsNotEnough();
+        if (getBalance(underlyingToken) < amount) revert UnderlyingTokenIsNotEnough();
         _deposit(amount);
     }
 

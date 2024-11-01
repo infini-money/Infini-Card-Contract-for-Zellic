@@ -34,7 +34,6 @@ contract MorphoStrategyTesting is BaseTest, StrategyUtils {
 
         uint256 _usdc_posiiton = infiniMorphoStrategy.getPosition();
         require(_usdc_posiiton == 100000 * 10**6, "position is invalid");
-
     
         vm.warp(block.timestamp + 1 weeks);
 
@@ -71,5 +70,15 @@ contract MorphoStrategyTesting is BaseTest, StrategyUtils {
   
         require(status.position == 2 * amount - actualAmount, "check status posistion");
         require(status.profit == _profit2, "check status profit");
+
+        uint256 _profit3 = infiniMorphoStrategy.getProfit();
+        vm.startPrank(shaneson);
+        infiniMorphoStrategy.settle(_profit3);
+        vm.stopPrank();
+        IStrategyManager.StrategyStatus memory status1 = IStrategyManager(address(infiniMorphoStrategy)).getStrategyStatus();
+
+        require(status1.profit == 0, "check status profit 2");
+        require(status1.position == (_profit3 - 1) + status.position , "check status posistion 2");
+
     }
 }
