@@ -13,7 +13,7 @@ abstract contract StrategyUtils {
     event WithdrawAssetToCustodian(address token, uint256 amount, address to, address strategy);
     event WithdrawAssetFromStrategy(address strategy, uint256 amount);
     event InvestWithStrategy(address strategy, uint256 amount);
-    event DivestWithStaregy(address strategy, uint256 amount);
+    event DivestWithStrategy(address strategy, uint256 amount);
     
     function _isBalanceEnough(address target, address token, uint256 amount) internal view returns (bool) {
         if (token == NATIVE_TOKEN) {

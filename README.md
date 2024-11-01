@@ -27,11 +27,10 @@ IERC20(token).TransferFrom(CEX, Vault, amount)
 ```
 
 
-### WithdrawToCEX
-When the Admin needs to withdraw funds from InfiniCardVault to the CEX, the WithdrawToCEX function will be called.
+When the Admin needs to withdraw funds from InfiniCardVault to the Reserve address, the withdrawToReserve function will be called.
 
 ```solidity
-    function withdrawToCEX(
+    function withdrawToReserve(
         address token,
         uint256 amount,
         address custodian,
@@ -120,7 +119,7 @@ The undistributed effortless interest is distributed into the position, part of 
 ```solidity
     function settle(uint256 unSettleProfit) external onlyRole(ADMIN_ROLE) {
         uint256 profit = getProfit();
-        if (unSettleProfit > profit) revert profitNotEnough();
+        if (unSettleProfit > profit) revert ProfitNotEnough();
 
         uint256 unsettleShare = IERC4626(market).convertToShares(unSettleProfit);
 
@@ -166,7 +165,7 @@ But it is worth mentioning that in the ToB solution, USDE income will be directl
 pragma solidity ^0.8.20;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {BaseStrategyManager} from "@InfiniCard/strategys/BaseStrategyManager.sol";
+import {BaseStrategyManager} from "@InfiniCard/strategies/BaseStrategyManager.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {IStrategyVault} from "@InfiniCard/interfaces/IStrategyVault.sol";
 

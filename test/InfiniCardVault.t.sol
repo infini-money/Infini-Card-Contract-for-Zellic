@@ -36,7 +36,7 @@ contract InfiniCardVaultTesting is BaseTest {
         vm.warp(block.timestamp + 2 weeks);
 
         uint256 beforeAmount = IERC20(USDCAddress).balanceOf(shaneson);
-        uint256 actualAmount = infiniCardVault.withdrawToCEX(
+        uint256 actualAmount = infiniCardVault.withdrawToReserve(
             USDCAddress, 
             100000 * 10**6, 
             shaneson, 

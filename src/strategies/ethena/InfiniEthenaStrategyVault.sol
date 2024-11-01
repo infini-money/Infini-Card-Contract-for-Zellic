@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {BaseStrategyVault} from "@InfiniCard/strategys/BaseStrategyVault.sol";
+import {BaseStrategyVault} from "@InfiniCard/strategies/BaseStrategyVault.sol";
 import {IEthenaMinting} from "@InfiniCard/interfaces/ethena/IEthenaMinting.sol";
 
 contract InfiniEthenaStrategyVault is BaseStrategyVault {
@@ -32,13 +32,13 @@ contract InfiniEthenaStrategyVault is BaseStrategyVault {
     }
 
     function deposit(uint256 amount, bytes calldata) external override onlyRole(INFINI_CARD_VAULT) {
-        if ( getBalance(underlyingToken) < amount ) revert UnderlyingTokenIsNotEnough();
+        if (getBalance(underlyingToken) < amount) revert UnderlyingTokenIsNotEnough();
         SafeERC20.forceApprove(IERC20(underlyingToken), ethenaMintingAddress, amount);
         emit DepositFinished(amount);
     }
 
     function redeem(uint256 amount, bytes calldata) external override onlyRole(INFINI_CARD_VAULT) returns (uint256 actualRedeemedAmount) {
-        if ( getBalance(shareToken) < amount) revert ShareTokenIsNotEnough();
+        if (getBalance(shareToken) < amount) revert ShareTokenIsNotEnough();
         SafeERC20.forceApprove(IERC20(shareToken), ethenaMintingAddress, amount);
         emit RedeemFinished(amount);
     }
@@ -52,6 +52,4 @@ contract InfiniEthenaStrategyVault is BaseStrategyVault {
         IEthenaMinting(ethenaMintingAddress).removeDelegatedSigner(delegateSigner);
         emit RemoveDelegateSigner(delegateSigner);
     }
-
-    
 }

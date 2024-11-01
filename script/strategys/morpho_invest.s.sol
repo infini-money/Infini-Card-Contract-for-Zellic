@@ -9,7 +9,7 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {InfiniCardVault} from "../../src/InfiniCardVault.sol";
 
 contract MorphoInvestScript is Script {
-    // forge script script/strategys/morpho_invest.s.sol:MorphoInvestScript --rpc-url https://eth-pokt.nodies.app --broadcast --legacy
+    // forge script script/strategies/morpho_invest.s.sol:MorphoInvestScript --rpc-url https://eth-pokt.nodies.app --broadcast --legacy
     function run() external {
         // 1. send usdc to infiniCardVault
         address morpho_strategy = 0x8D859BA19cC903cb71F7d36390f694c76821fCE2;

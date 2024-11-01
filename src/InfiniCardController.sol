@@ -52,12 +52,12 @@ contract InfiniCardController is AccessControl, StrategyUtils {
         strategyWhiteList[strategy] = false;
     }
 
-    function addCustodianToWhiteList(address cusdian) onlyRole(ADMIN_ROLE) external {
-        custodianWhiteList[cusdian] = true;
+    function addCustodianToWhiteList(address custodian) onlyRole(ADMIN_ROLE) external {
+        custodianWhiteList[custodian] = true;
     }
 
-    function removeCustodianToWhiteList(address cusdian) onlyRole(ADMIN_ROLE) external {
-        custodianWhiteList[cusdian] = false;
+    function removeCustodianFromWhiteList(address custodian) onlyRole(ADMIN_ROLE) external {
+        custodianWhiteList[custodian] = false;
     }
 
     function _addToken(address token) internal {
@@ -94,8 +94,8 @@ contract InfiniCardController is AccessControl, StrategyUtils {
         }
     }
 
-    function _isCustodianValid(address cusdian) internal view  {
-        if (!custodianWhiteList[cusdian]) {
+    function _isCustodianValid(address custodian) internal view  {
+        if (!custodianWhiteList[custodian]) {
             revert CustodianInvalid();
         }
     }

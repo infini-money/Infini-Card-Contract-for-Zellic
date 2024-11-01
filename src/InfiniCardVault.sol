@@ -47,8 +47,7 @@ contract InfiniCardVault is IInfiniCardVault, InfiniCardController, VaultUtils {
     // ==================== INFINI_BACKEND_ROLE ====================   
     // =============================================================
 
-    // Function to withdraw to CEX
-    function withdrawToCEX(
+    function withdrawToReserve(
         address token,
         uint256 amount,
         address custodian,
@@ -121,7 +120,7 @@ contract InfiniCardVault is IInfiniCardVault, InfiniCardController, VaultUtils {
 
         actualAmount = IStrategyVault(strategy).redeem(amount, redeemInfo);
         
-        emit DivestWithStaregy(strategy, actualAmount);
+        emit DivestWithStrategy(strategy, actualAmount);
     }
 
     // Fallback function to receive Ether

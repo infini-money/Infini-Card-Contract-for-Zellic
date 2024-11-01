@@ -4,9 +4,9 @@ pragma solidity ^0.8.20;
 
 import "forge-std/Script.sol";
 import "../src/InfiniCardVault.sol";
-import {InfiniEthenaStrategyVault} from "../src/strategys/ethena/InfiniEthenaStrategyVault.sol";
-import {InfiniMorphoStrategyVault} from "../src/strategys/morpho/InfiniMorphoStrategyVault.sol";
-import {InfiniEthenaStrategyManager} from "../src/strategys/ethena/InfiniEthenaStrategyManager.sol";
+import {InfiniEthenaStrategyVault} from "../src/strategies/ethena/InfiniEthenaStrategyVault.sol";
+import {InfiniMorphoStrategyVault} from "../src/strategies/morpho/InfiniMorphoStrategyVault.sol";
+import {InfiniEthenaStrategyManager} from "../src/strategies/ethena/InfiniEthenaStrategyManager.sol";
 
 contract DeployInfiniCardVault is Script {
     // forge script script/0.deployInfiniCardVault.s.sol:DeployInfiniCardVault --broadcast --rpc-url https://rpc.mevblocker.io --legacy
@@ -31,7 +31,7 @@ contract DeployInfiniCardVault is Script {
 
         vm.stopBroadcast();
 
-        // strategys
+        // strategies
         address EthenaMintingAddress = 0xe3490297a08d6fC8Da46Edb7B6142E4F461b62D3;
 
         vm.startBroadcast(adminPrivateKey);

@@ -6,11 +6,11 @@ pragma solidity ^0.8.20;
 import "forge-std/Script.sol";
 import {IERC4626} from "@openzeppelin/contracts/interfaces/IERC4626.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {InfiniMorphoStrategyVault} from "../../src/strategys/morpho/InfiniMorphoStrategyVault.sol";
+import {InfiniMorphoStrategyVault} from "../../src/strategies/morpho/InfiniMorphoStrategyVault.sol";
 
 contract PreviewInvestInfoScript is Script {
 
-    // forge script script/strategys/preview_investInfo.s.sol:PreviewInvestInfoScript --rpc-url https://eth.llamarpc.com
+    // forge script script/strategies/preview_investInfo.s.sol:PreviewInvestInfoScript --rpc-url https://eth.llamarpc.com
     function run() view external {
         // address infiniCardVault = 0x09E52AA36484c20288D9C148458Ea4DA991118Af;
         // address USDC = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;

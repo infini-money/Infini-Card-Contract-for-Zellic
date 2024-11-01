@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {BaseStrategyManager} from "@InfiniCard/strategys/BaseStrategyManager.sol";
+import {BaseStrategyManager} from "@InfiniCard/strategies/BaseStrategyManager.sol";
 import {IStrategyVault} from "@InfiniCard/interfaces/IStrategyVault.sol";
 
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol"; 
@@ -26,15 +26,15 @@ contract InfiniEthenaStrategyManager is BaseStrategyManager {
         });
     }
 
-    function settle(uint256 unSettleProfit) external override onlyRole(ADMIN_ROLE) {
+    function settle(uint256 unsettledProfit) external override onlyRole(ADMIN_ROLE) {
         uint256 profit = _getProfit();
-        if (profit < unSettleProfit) revert ProfitIsNotEnough();
+        if (profit < unsettledProfit) revert ProfitIsNotEnough();
 
-        uint256 protocolProfit = unSettleProfit * carryRate / 10000;
-        uint256 settleProfit = unSettleProfit - protocolProfit;
+        uint256 protocolProfit = unsettledProfit * carryRate / 10000;
+        uint256 settleProfit = unsettledProfit - protocolProfit;
 
-        IERC20(profitToken).safeTransfer(infiniTreasure, protocolProfit); // 修改为 safeTransfer
-        IERC20(profitToken).safeTransfer(strategyVault, settleProfit); // 修改为 safeTransfer
+        IERC20(profitToken).safeTransfer(infiniTreasure, protocolProfit); 
+        IERC20(profitToken).safeTransfer(strategyVault, settleProfit); 
 
         emit Settlement(profitToken, protocolProfit, settleProfit);
     }

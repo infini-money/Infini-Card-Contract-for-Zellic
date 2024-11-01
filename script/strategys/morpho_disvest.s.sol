@@ -7,13 +7,13 @@ pragma solidity ^0.8.20;
 import "forge-std/Script.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {InfiniCardVault} from "../../src/InfiniCardVault.sol";
-import {InfiniMorphoStrategyVault} from "../../src/strategys/morpho/InfiniMorphoStrategyVault.sol";
+import {InfiniMorphoStrategyVault} from "../../src/strategies/morpho/InfiniMorphoStrategyVault.sol";
 import {IERC4626} from "@openzeppelin/contracts/interfaces/IERC4626.sol";
 
 import {IInfiniCardVault} from "../../src/interfaces/IInfiniCardVault.sol";
 
 contract MorphoDisvestScript is Script {
-    // forge script script/strategys/morpho_disvest.s.sol:MorphoDisvestScript --rpc-url https://eth-pokt.nodies.app --broadcast --legacy
+    // forge script script/strategies/morpho_disvest.s.sol:MorphoDisvestScript --rpc-url https://eth-pokt.nodies.app --broadcast --legacy
     function run() external {
 
         uint256 adminPrivateKey = vm.envUint("ADMIN_PRIVATE_KEY");
@@ -53,8 +53,8 @@ contract MorphoDisvestScript is Script {
         uint256 usdcBalance2 = IERC20(USDC).balanceOf(infiniCardVault);
         console.log("usdcBalance2", usdcBalance2);
 
-        IInfiniCardVault(infiniCardVault).withdrawToCEX(USDC, usdcBalance2, shaneson, address(morpho), "");
-        console.log("withdrawToCEX finished");
+        IInfiniCardVault(infiniCardVault).withdrawToReserve(USDC, usdcBalance2, shaneson, address(morpho), "");
+        console.log("withdrawToReserve finished");
 
         vm.stopBroadcast();
 

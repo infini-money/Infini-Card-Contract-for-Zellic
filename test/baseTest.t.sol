@@ -3,12 +3,12 @@
 pragma solidity ^0.8.20;
 
 import {stdStorage, StdStorage, Test} from "forge-std/Test.sol";
-import {InfiniEthenaStrategyVault} from "@InfiniCard/strategys/ethena/InfiniEthenaStrategyVault.sol";
+import {InfiniEthenaStrategyVault} from "@InfiniCard/strategies/ethena/InfiniEthenaStrategyVault.sol";
 import {InfiniCardVault} from "@InfiniCard/InfiniCardVault.sol";
 import {IEthenaMinting} from "@InfiniCard/interfaces/ethena/IEthenaMinting.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {InfiniEthenaStrategyManager} from "@InfiniCard/strategys/ethena/InfiniEthenaStrategyManager.sol";
-import {InfiniMorphoStrategyVault} from "@InfiniCard/strategys/morpho/InfiniMorphoStrategyVault.sol";
+import {InfiniEthenaStrategyManager} from "@InfiniCard/strategies/ethena/InfiniEthenaStrategyManager.sol";
+import {InfiniMorphoStrategyVault} from "@InfiniCard/strategies/morpho/InfiniMorphoStrategyVault.sol";
 
 contract BaseTest is Test {
 

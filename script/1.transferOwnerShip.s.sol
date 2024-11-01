@@ -4,9 +4,9 @@ pragma solidity ^0.8.20;
 import "forge-std/Script.sol";
 
 import "../src/InfiniCardVault.sol";
-import {InfiniEthenaStrategyVault} from "../src/strategys/ethena/InfiniEthenaStrategyVault.sol";
-import {InfiniMorphoStrategyVault} from "../src/strategys/morpho/InfiniMorphoStrategyVault.sol";
-import {InfiniEthenaStrategyManager} from "../src/strategys/ethena/InfiniEthenaStrategyManager.sol";
+import {InfiniEthenaStrategyVault} from "../src/strategies/ethena/InfiniEthenaStrategyVault.sol";
+import {InfiniMorphoStrategyVault} from "../src/strategies/morpho/InfiniMorphoStrategyVault.sol";
+import {InfiniEthenaStrategyManager} from "../src/strategies/ethena/InfiniEthenaStrategyManager.sol";
 
 contract TransferOwnerShip is Script {
     bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");

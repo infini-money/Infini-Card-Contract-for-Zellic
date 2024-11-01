@@ -22,7 +22,7 @@ abstract contract BaseStrategyManager is IStrategyManager, AccessControl {
         _grantRole(ADMIN_ROLE, _adminRole);
     }
 
-    function settle(uint256 unSettleProfit) external virtual {}
+    function settle(uint256 unsettledProfit) external virtual {}
 
     function getStrategyStatus() external virtual view returns (StrategyStatus memory status)  {}
 }

@@ -20,7 +20,7 @@ abstract contract BaseStrategyVault is IStrategyVault, AccessControl {
     error AssetNotEnough();
     error UnderlyingTokenIsNotEnough();
     error ShareTokenIsNotEnough();
-    error profitNotEnough();
+    error ProfitNotEnough();
     error AmountCannotBeGreaterThanPosition();
 
     event WithdrawAssetToVault(address token, uint256 amount);
@@ -50,7 +50,7 @@ abstract contract BaseStrategyVault is IStrategyVault, AccessControl {
     function withdraw(address token, uint256 amount) virtual external onlyRole(INFINI_CARD_VAULT) returns(uint256 actualAmount) {
         uint256 vaultBalance = IERC20(token).balanceOf(address(this));
 
-        if ( vaultBalance < amount ) {
+        if (vaultBalance < amount) {
             actualAmount = vaultBalance;
         } else {
             actualAmount = amount;
@@ -70,7 +70,7 @@ abstract contract BaseStrategyVault is IStrategyVault, AccessControl {
 
     function name() virtual external view returns (string memory) {}
 
-    function deposit(uint256 _amount,  bytes calldata) virtual external {}
+    function deposit(uint256 _amount, bytes calldata) virtual external {}
 
     function redeem(uint256 _amount, bytes calldata) virtual external returns (uint256 actualRedeemedAmount) {}
 
