@@ -13,8 +13,8 @@ contract InfiniMorphoStrategyVaultV2 is BaseStrategyVault, IStrategyManager {
     uint256 public vaultPosition;
     address public immutable market;
     address public immutable infiniTreasure;
-
-    address public MORPHO = 0x9994E35Db50125E0DF82e4c2dde62496CE330999;
+    
+    address public MORPHO = 0x58D97B57BB95320F9a05dC918Aef65434969c2B2;
 
     string public constant override name = "InfiniMorphoStrategy";
     uint256 public carryRate = 0;

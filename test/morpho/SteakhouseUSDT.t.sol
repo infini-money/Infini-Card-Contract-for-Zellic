@@ -16,7 +16,7 @@ import {InfiniMorphoStrategyVaultV2} from "@InfiniCard/strategies/morpho/InfiniM
 contract SteakhouseUSDTsolMorphoStrategyTesting is BaseTest, StrategyUtils {
     InfiniMorphoStrategyVaultV2 morphoStrategyV2;
     address public _market = 0xbEef047a543E45807105E51A8BBEFCc5950fcfBa;
-    address public _morpho = 0x9994E35Db50125E0DF82e4c2dde62496CE330999;
+    address public _morpho = 0x58D97B57BB95320F9a05dC918Aef65434969c2B2;
     address public _morpho_admin = 0xcBa28b38103307Ec8dA98377ffF9816C164f9AFa ;
 
     function setUp() override public  {
@@ -36,17 +36,12 @@ contract SteakhouseUSDTsolMorphoStrategyTesting is BaseTest, StrategyUtils {
         infiniCardVault.addStrategy(address(morphoStrategyV2));
         vm.stopPrank();
 
-        vm.startPrank(_morpho_admin);
-
-
-        vm.stopPrank();
-
     }
 
 
     function test_harvest() public {
         uint256 amount = 100 ether;
-        // deal(_morpho, address(morphoStrategyV2), amount);
+        deal(_morpho, address(morphoStrategyV2), amount);
 
         vm.startPrank(shaneson);
         uint256 harvestedAmount = morphoStrategyV2.harvest();

@@ -13,9 +13,9 @@ import {IStrategyVault} from "@InfiniCard/interfaces/IStrategyVault.sol";
 import {BaseTest} from "../baseTest.t.sol";
 import {InfiniMorphoStrategyVaultV2} from "@InfiniCard/strategies/morpho/InfiniMorphoStrategyVaultV2.sol";
 
-contract Re7USDTMorphoStrategyTesting is BaseTest, StrategyUtils {
+contract GauntletUSDTSTesting is BaseTest, StrategyUtils {
     InfiniMorphoStrategyVaultV2 morphoStrategyV2;
-    address public _market = 0x95EeF579155cd2C5510F312c8fA39208c3Be01a8;
+    address public _market = 0x8CB3649114051cA5119141a34C200D65dc0Faa73;
     address public _morpho = 0x58D97B57BB95320F9a05dC918Aef65434969c2B2;
     address public _morpho_admin = 0xcBa28b38103307Ec8dA98377ffF9816C164f9AFa ;
 
@@ -36,6 +36,10 @@ contract Re7USDTMorphoStrategyTesting is BaseTest, StrategyUtils {
         infiniCardVault.addStrategy(address(morphoStrategyV2));
         vm.stopPrank();
 
+        vm.startPrank(_morpho_admin);
+
+
+        vm.stopPrank();
 
     }
 
@@ -80,6 +84,7 @@ contract Re7USDTMorphoStrategyTesting is BaseTest, StrategyUtils {
             ""
         );
         vm.stopPrank();
+
 
         uint256 _profit1 = morphoStrategyV2.getProfit();
         console.log(_profit1);
