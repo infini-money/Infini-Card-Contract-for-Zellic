@@ -16,5 +16,5 @@ interface IStrategyVault {
 
     function withdraw(address token, uint256 _amount) external returns (uint256);
 
-    function harvest() external returns (uint256 amount);
+    function harvest(address token) external returns (uint256 amount);
 }

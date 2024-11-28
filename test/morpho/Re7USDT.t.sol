@@ -45,8 +45,8 @@ contract Re7USDTMorphoStrategyTesting is BaseTest, StrategyUtils {
         deal(_morpho, address(morphoStrategyV2), amount);
 
         vm.startPrank(shaneson);
-        uint256 harvestedAmount = morphoStrategyV2.harvest();
-        uint256 morphoBalance = IERC20(morphoStrategyV2.MORPHO()).balanceOf(shaneson);
+        uint256 harvestedAmount = morphoStrategyV2.harvest(_morpho);
+        uint256 morphoBalance = IERC20(_morpho).balanceOf(shaneson);
         require(harvestedAmount == morphoBalance, "Harvested amount should be equal to the balance in infiniCardVault");
         vm.stopPrank();
     }

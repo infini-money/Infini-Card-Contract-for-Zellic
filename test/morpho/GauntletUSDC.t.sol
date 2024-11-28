@@ -49,8 +49,8 @@ contract GauntletUSDCSTesting is BaseTest, StrategyUtils {
         deal(_morpho, address(morphoStrategyV2), amount);
 
         vm.startPrank(shaneson);
-        uint256 harvestedAmount = morphoStrategyV2.harvest();
-        uint256 morphoBalance = IERC20(morphoStrategyV2.MORPHO()).balanceOf(shaneson);
+        uint256 harvestedAmount = morphoStrategyV2.harvest(_morpho);
+        uint256 morphoBalance = IERC20(_morpho).balanceOf(shaneson);
         require(harvestedAmount == morphoBalance, "Harvested amount should be equal to the balance in infiniCardVault");
         vm.stopPrank();
     }
@@ -71,6 +71,8 @@ contract GauntletUSDCSTesting is BaseTest, StrategyUtils {
         require(vaultShare > 0, "check shareToken Amount");
 
         uint256 _usdc_posiiton = morphoStrategyV2.getPosition();
+        console.log("_usdc_posiiton: ", _usdc_posiiton);
+        
         require(_usdc_posiiton == 100000 * 10**6, "position is invalid");
     
         vm.warp(block.timestamp + 1 weeks);

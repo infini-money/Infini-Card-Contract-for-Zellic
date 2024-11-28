@@ -13,7 +13,7 @@ import {IStrategyVault} from "@InfiniCard/interfaces/IStrategyVault.sol";
 import {BaseTest} from "../baseTest.t.sol";
 import {InfiniMorphoStrategyVaultV2} from "@InfiniCard/strategies/morpho/InfiniMorphoStrategyVaultV2.sol";
 
-contract GauntletUSDTSTesting is BaseTest, StrategyUtils {
+contract GauntletUSDTTesting is BaseTest, StrategyUtils {
     InfiniMorphoStrategyVaultV2 morphoStrategyV2;
     address public _market = 0x8CB3649114051cA5119141a34C200D65dc0Faa73;
     address public _morpho = 0x58D97B57BB95320F9a05dC918Aef65434969c2B2;
@@ -49,8 +49,8 @@ contract GauntletUSDTSTesting is BaseTest, StrategyUtils {
         deal(_morpho, address(morphoStrategyV2), amount);
 
         vm.startPrank(shaneson);
-        uint256 harvestedAmount = morphoStrategyV2.harvest();
-        uint256 morphoBalance = IERC20(morphoStrategyV2.MORPHO()).balanceOf(shaneson);
+        uint256 harvestedAmount = morphoStrategyV2.harvest(_morpho);
+        uint256 morphoBalance = IERC20(_morpho).balanceOf(shaneson);
         require(harvestedAmount == morphoBalance, "Harvested amount should be equal to the balance in infiniCardVault");
         vm.stopPrank();
     }

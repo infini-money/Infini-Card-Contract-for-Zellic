@@ -14,8 +14,6 @@ contract InfiniMorphoStrategyVaultV2 is BaseStrategyVault, IStrategyManager {
     address public immutable market;
     address public immutable infiniTreasure;
     
-    address public MORPHO = 0x58D97B57BB95320F9a05dC918Aef65434969c2B2;
-
     string public constant override name = "InfiniMorphoStrategyV2";
     uint256 public carryRate = 0;
     
@@ -60,13 +58,15 @@ contract InfiniMorphoStrategyVaultV2 is BaseStrategyVault, IStrategyManager {
         });
     }
 
-    function harvest() external override onlyRole(ADMIN_ROLE) returns (uint256 amount) {
-        uint256 morphoBalance = IERC20(MORPHO).balanceOf(address(this));
-        if (morphoBalance > 0) {
-            SafeERC20.safeTransfer(IERC20(MORPHO), multiSign , morphoBalance);
-            emit HarvestToMultiSign(MORPHO, multiSign, morphoBalance);
+    function harvest(address token) external override onlyRole(ADMIN_ROLE) returns (uint256 amount) {
+        require(token != underlyingToken && token != shareToken, "Cannot harvest underlyingToken or shareToken");
+
+        uint256 tokenBalance = IERC20(token).balanceOf(address(this));
+        if (tokenBalance > 0) {
+            SafeERC20.safeTransfer(IERC20(token), multiSign, tokenBalance);
+            emit HarvestToMultiSign(token, multiSign, tokenBalance);
         }
-        return morphoBalance;
+        return tokenBalance;
     }
 
     function settle(uint256 unSettleProfit) external onlyRole(ADMIN_ROLE) {
