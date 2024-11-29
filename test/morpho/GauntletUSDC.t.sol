@@ -13,7 +13,7 @@ import {IStrategyVault} from "@InfiniCard/interfaces/IStrategyVault.sol";
 import {BaseTest} from "../baseTest.t.sol";
 import {InfiniMorphoStrategyVaultV2} from "@InfiniCard/strategies/morpho/InfiniMorphoStrategyVaultV2.sol";
 
-contract GauntletUSDCSTesting is BaseTest, StrategyUtils {
+contract GauntletUSDCTesting is BaseTest, StrategyUtils {
     InfiniMorphoStrategyVaultV2 morphoStrategyV2;
     address public _market = 0x8eB67A509616cd6A7c1B3c8C21D48FF57df3d458;
     address public _morpho = 0x58D97B57BB95320F9a05dC918Aef65434969c2B2;
@@ -26,7 +26,7 @@ contract GauntletUSDCSTesting is BaseTest, StrategyUtils {
             shaneson,
             shaneson,
             address(infiniCardVault),
-            USDTAddress,
+            USDCAddress,
             _market,
             _market,
             infiniTreasure
@@ -55,10 +55,10 @@ contract GauntletUSDCSTesting is BaseTest, StrategyUtils {
         vm.stopPrank();
     }
 
-    function test_deposit_and_redeem() public {
+    function test_deposit_and_redeem_onGauntletUSDC() public {
         uint256 amount = 100000 * 10**6;
-        deal(USDTAddress, address(this), amount * 2);
-        SafeERC20.safeTransfer(IERC20(USDTAddress), address(infiniCardVault), amount);
+        deal(USDCAddress, address(this), amount * 2);
+        SafeERC20.safeTransfer(IERC20(USDCAddress), address(infiniCardVault), amount);
 
         vm.startPrank(shaneson);
         infiniCardVault.invest(
@@ -72,12 +72,12 @@ contract GauntletUSDCSTesting is BaseTest, StrategyUtils {
 
         uint256 _usdc_posiiton = morphoStrategyV2.getPosition();
         console.log("_usdc_posiiton: ", _usdc_posiiton);
-        
+
         require(_usdc_posiiton == 100000 * 10**6, "position is invalid");
     
         vm.warp(block.timestamp + 1 weeks);
 
-        SafeERC20.safeTransfer(IERC20(USDTAddress), address(infiniCardVault), amount);
+        SafeERC20.safeTransfer(IERC20(USDCAddress), address(infiniCardVault), amount);
 
         vm.startPrank(shaneson);
         infiniCardVault.invest(
@@ -104,7 +104,7 @@ contract GauntletUSDCSTesting is BaseTest, StrategyUtils {
         uint256 _profit2 = morphoStrategyV2.getProfit();
         console.log(_profit2);
 
-        require(IERC20(USDTAddress).balanceOf(address(morphoStrategyV2)) == actualAmount, "check redeem result");
+        require(IERC20(USDCAddress).balanceOf(address(morphoStrategyV2)) == actualAmount, "check redeem result");
  
         IStrategyManager.StrategyStatus memory status = IStrategyManager(address(morphoStrategyV2)).getStrategyStatus();
   

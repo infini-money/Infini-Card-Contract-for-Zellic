@@ -58,7 +58,8 @@ contract InfiniMorphoStrategyVaultV2 is BaseStrategyVault, IStrategyManager {
         });
     }
 
-    function harvest(address token) external override onlyRole(ADMIN_ROLE) returns (uint256 amount) {
+    function harvest(address token) override external onlyRole(ADMIN_ROLE) returns (uint256 amount) {
+        // function harvest(address token) external override onlyRole(ADMIN_ROLE) returns (uint256 amount) {
         require(token != underlyingToken && token != shareToken, "Cannot harvest underlyingToken or shareToken");
 
         uint256 tokenBalance = IERC20(token).balanceOf(address(this));
