@@ -12,6 +12,7 @@ abstract contract BaseStrategyVault is IStrategyVault, AccessControl {
     bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
     bytes32 public constant INFINI_CARD_VAULT = keccak256("INFINI_CARD_VAULT");
 
+    address public immutable multiSign;
     address public immutable infiniVault;
     address public immutable override underlyingToken;
     address public immutable override shareToken;
@@ -23,6 +24,7 @@ abstract contract BaseStrategyVault is IStrategyVault, AccessControl {
     error ProfitNotEnough();
     error AmountCannotBeGreaterThanPosition();
 
+    event HarvestToMultiSign(address token, address to, uint256 amount);
     event WithdrawAssetToVault(address token, uint256 amount);
     event DepositFinished(uint256 amount);
     event RedeemFinished(uint256 amount);
@@ -38,6 +40,7 @@ abstract contract BaseStrategyVault is IStrategyVault, AccessControl {
             revert InvalidZeroAddress();
         }
 
+        multiSign = _multiSign;
         underlyingToken = _asset;
         shareToken = _shareToken;
         infiniVault = _infiniCardVault;
@@ -74,5 +77,5 @@ abstract contract BaseStrategyVault is IStrategyVault, AccessControl {
 
     function redeem(uint256 _amount, bytes calldata) virtual external returns (uint256 actualRedeemedAmount) {}
 
-    function harvest() external returns (uint256 amount) {}
+    function harvest(address token) virtual external returns (uint256 amount) {}
 }
